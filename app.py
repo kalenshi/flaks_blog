@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, session, redirect, flash
 
 from forms import RegistrationForm, LoginForm
 
@@ -30,15 +30,42 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
-    return render_template("login.html", form=form)
+    form_email = ""
+    user = session.get("user")
+    if user:
+        form_email = user.get("email")
+
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+        remember = form.remember.data
+        session["email"] = email
+        if email == "kalenshi@gmail.com" and password == "123":
+            flash(message="You have been logged in!", category="success")
+            return redirect(location=url_for('home'))
+        else:
+            flash(message="Invalid credentials!", category="danger")
+    return render_template("login.html", form=form, form_email=form_email)
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(message="Thank you for Registering!", category="success")
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+        confirm_password = form.confirm_password.data
+        session["user"] = {
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        return redirect(location=url_for("login"))
     return render_template("register.html", form=form)
 
 
