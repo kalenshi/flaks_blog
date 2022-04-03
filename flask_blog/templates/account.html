@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block title %}
-page not found
+about page
 {% endblock title %}
 {% block body %}
-<h1>Now that's Embarrassing!</h1>
-<hr>
-<h2>{{message}}</h2>
+<h1>{{current_user.username}}</h1>
 {% endblock body %}

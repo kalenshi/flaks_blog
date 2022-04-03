@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <meta name="author" content="Kalenshi Katebe">
+    <meta name="author" content="Kalenshi Katebe">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -33,9 +33,15 @@
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
+                    <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
+                    {% else %}
                     <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
                     <a class="nav-item nav-link" href="{{url_for('register')}}">Register</a>
+                    {% endif%}
                 </div>
+
             </div>
         </div>
     </nav>
