@@ -3,6 +3,7 @@
 account page
 {% endblock title %}
 {% block body %}
+
 <div class="content-section">
     <div class="media">
         <img class="rounded-circle account-img" src="{{profile_image}}">
@@ -71,4 +72,16 @@ account page
     </div>
 </article>
 
+<article class="media content-section">
+    {% for post in posts %}
+        <div class="media-body">
+        <div class="article-metadata">
+            <small class="mr-2" >{{ post.author.username }}</small>
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content }}</p>
+    </div>
+    {% endfor %}
+</article>
 {% endblock body %}
