@@ -27,6 +27,7 @@ def save_picture(form_picture):
 @app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
+    posts = current_user.posts
     form = UpdateAccountForm()
     profile_image = url_for("static", filename=f"images/{current_user.image_file}")
 
@@ -42,4 +43,4 @@ def account():
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template("account.html", form=form, profile_image=profile_image)
+    return render_template("account.html", form=form, profile_image=profile_image, posts=posts)
