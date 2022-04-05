@@ -21,4 +21,4 @@ def new_post():
         db.session.commit()
         flash(message="Your post has been created", category="success")
         return redirect(url_for("account"))
-    return render_template("create_post.html", form=form)
+    return render_template("create_post.html", form=form, legend="Update Post")
