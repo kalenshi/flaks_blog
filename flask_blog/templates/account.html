@@ -62,15 +62,4 @@ account page
 </div>
 <!-- FORM HERE -->
 
-<article class="media content-section">
-
-    <div class="media-body">
-        {% for post in posts %}
-        <h2><a class="article-title" href="{{url_for('post', post_id=post.id)}}">{{ post.title
-            }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
-        {% endfor %}
-    </div>
-
-</article>
 {% endblock body %}

@@ -1,4 +1,4 @@
-from flask_blog import db, login_manager
+from flask_blog import db, login_manager, bcrypt
 from flask_login import UserMixin
 
 
@@ -24,4 +24,7 @@ class User(db.Model, UserMixin):
         self.username = username
         self.email = email
         self.image_file = image_file
-        self.password = password
+        self.password = self.set_password(password)
+
+    def set_password(self, password):
+        return bcrypt.generate_password_hash(password).decode("utf-8")

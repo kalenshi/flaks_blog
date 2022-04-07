@@ -9,3 +9,4 @@ from .new_posts import new_post
 from .edit_post import update_post
 from .delete_post import delete_post
 from .post import post
+from .users_posts import user_posts
