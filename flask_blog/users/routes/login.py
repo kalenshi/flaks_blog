@@ -1,11 +1,15 @@
-from flask import render_template, flash, redirect, url_for, session, request
-from flask_blog import app, bcrypt
-from flask_blog.forms import LoginForm
+from flask import render_template, flash, redirect, url_for, request
+
+from flask_blog import bcrypt
+
 from flask_blog.models import User
 from flask_login import login_user, current_user
 
+from flask_blog.users.forms import LoginForm
+from flask_blog.users.routes import users
 
-@app.route("/login", methods=["GET", "POST"])
+
+@users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("home"))
@@ -17,7 +21,8 @@ def login():
             next_page = request.args.get("next")
             if next_page and next_page.startswith("/"):
                 next_page = next_page[1:]
-            return redirect(url_for(next_page)) if next_page else redirect(url_for("home"))
+            return redirect(url_for(f"users.{next_page}")) if next_page else redirect(url_for(
+                "main.home"))
 
         else:
             flash(message="Invalid credentials!", category="danger")
