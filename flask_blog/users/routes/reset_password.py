@@ -1,12 +1,13 @@
 from flask import url_for, redirect, render_template, flash
 from flask_login import current_user
 
-from flask_blog import app, db
-from flask_blog.forms.reset_password_form import ResetPasswordForm
+from flask_blog import db
+from flask_blog.users.forms.reset_password_form import ResetPasswordForm
 from flask_blog.models import User
+from flask_blog.users.routes import users
 
 
-@app.route("/reset_password/<string:token>", methods=["POST", "GET"])
+@users.route("/reset_password/<string:token>", methods=["POST", "GET"])
 def reset_password(token):
     """
 

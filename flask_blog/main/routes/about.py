@@ -1,7 +1,8 @@
 from flask import render_template
-from flask_blog import app
+
+from flask_blog.main.routes import main
 
 
-@app.route("/about")
+@main.route("/about")
 def about():
     return render_template("about.html")

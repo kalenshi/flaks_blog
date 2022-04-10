@@ -1,7 +1,8 @@
 from flask import render_template
-from flask_blog import app
+
+from flask_blog.users.routes import users
 
 
-@app.route("/request_sent", methods=["GET"])
+@users.route("/request_sent", methods=["GET"])
 def request_sent():
     return render_template("request_sent.html")

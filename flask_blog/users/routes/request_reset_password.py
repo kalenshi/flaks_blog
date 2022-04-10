@@ -1,14 +1,13 @@
-from flask import url_for, redirect, render_template, flash, request
+from flask import url_for, redirect, render_template, flash
 from flask_login import current_user
-from flask_mail import Message
 
-from flask_blog import app, mail
-from flask_blog.forms.request_reset_form import RequestRestForm
+from flask_blog.users.forms.request_reset_form import RequestRestForm
 from flask_blog.models import User
-from flask_blog.utils.send_email import send_email
+from flask_blog.users.routes import users
+from flask_blog.users.utils.send_email import send_email
 
 
-@app.route("/reset_request_password", methods=["POST", "GET"])
+@users.route("/reset_request_password", methods=["POST", "GET"])
 def reset_request_password():
     """
 

@@ -1,13 +1,14 @@
 from flask import render_template, redirect, url_for, flash
-from flask_blog import app, db
-from flask_blog.forms.create_post_form import CreatePostForm
+from flask_blog import db
+from flask_blog.posts.forms.create_post_form import CreatePostForm
 
 from flask_login import login_required, current_user
 
 from flask_blog.models import Post
+from flask_blog.posts.routes import posts
 
 
-@app.route("/post/new", methods=["GET", "POST"])
+@posts.route("/post/new", methods=["GET", "POST"])
 @login_required
 def new_post():
     form = CreatePostForm()

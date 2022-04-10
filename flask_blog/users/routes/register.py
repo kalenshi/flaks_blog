@@ -1,12 +1,13 @@
 from flask import flash, redirect, url_for, render_template
 from flask_login import current_user
 
-from flask_blog import app, db, bcrypt
-from flask_blog.forms import RegistrationForm
+from flask_blog import db
 from flask_blog.models import User
+from flask_blog.users.forms import RegistrationForm
+from flask_blog.users.routes import users
 
 
-@app.route("/register", methods=["GET", "POST"])
+@users.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("home"))
