@@ -10,3 +10,7 @@ from .edit_post import update_post
 from .delete_post import delete_post
 from .post import post
 from .users_posts import user_posts
+from .reset_password import reset_password
+from .request_reset_password import reset_request_password
+from .request_sent import request_sent
+
