@@ -10,6 +10,9 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 def create_app(config_class=Config):
+    """
+    Creates a flask app with a given configuration
+    """
     app = Flask(__name__, template_folder="templates", static_folder="static")
     app.config.from_object(config_class)
 
@@ -20,6 +23,9 @@ def create_app(config_class=Config):
 
 
 def register_extensions(app):
+    """
+    Register extensions used with this app
+    """
     with app.app_context():
         db.init_app(app)
         Migrate(app, db)
@@ -31,6 +37,9 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
+    """
+    Register blueprints
+    """
     from flask_blog.users.views import users_blueprint
     from flask_blog.posts.views import posts_blueprint
     from flask_blog.public.views import public_blueprint
