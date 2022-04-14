@@ -22,5 +22,5 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash(message="Your post has been created", category="success")
-        return redirect(url_for("account"))
-    return render_template("../posts/templates/posts/create_post.html", form=form, legend="Update Post")
+        return redirect(url_for("users_blueprint.account"))
+    return render_template("create_post.html", form=form, legend="Update Post")

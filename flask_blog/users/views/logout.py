@@ -11,4 +11,4 @@ def logout():
     logout_user()
     flash(message=f"Successfully logged out `{email}`", category="success")
     logout_user()
-    return redirect(url_for("home"))
+    return redirect(url_for("public_blueprint.home"))

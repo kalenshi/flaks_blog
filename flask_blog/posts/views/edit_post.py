@@ -22,8 +22,8 @@ def update_post(post_id):
 
         db.session.commit()
         flash(message="Your post has been updated", category="success")
-        return redirect(url_for("post", post_id=post.id))
+        return redirect(url_for("posts_blueprint.post", post_id=post.id))
     elif request.method == "GET":
         form.title.data = post.title
         form.content.data = post.content
-    return render_template("../posts/templates/posts/update_post.html", form=form, legend="Update post")
+    return render_template("update_post.html", form=form, legend="Update post")

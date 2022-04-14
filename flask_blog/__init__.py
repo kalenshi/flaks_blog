@@ -26,7 +26,7 @@ def register_extensions(app):
         mail.init_app(app)
         bcrypt.init_app(app)
         login_manager.init_app(app)
-        login_manager.login_view = "login"
+        login_manager.login_view = "users_blueprint.login"
         login_manager.login_message_category = "info"
 
 
