@@ -11,7 +11,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <title>{% block title %}{% endblock title %}</title>
 
 
@@ -20,7 +20,7 @@
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-            <a class="navbar-brand mr-4" href="{{url_for('home')}}">Flask Blog</a>
+            <a class="navbar-brand mr-4" href="{{url_for('public_blueprint.home')}}">Flask Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -28,18 +28,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{{url_for('home')}}">Home</a>
-                    <a class="nav-item nav-link" href="{{url_for('about')}}">About</a>
+                    <a class="nav-item nav-link" href="{{url_for('public_blueprint.home')}}">Home</a>
+                    <a class="nav-item nav-link" href="{{url_for('public_blueprint.about')}}">About</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                     {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
-                    <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
-                    <a class="nav-item nav-link" href="{{url_for('new_post')}}">New Post</a>
+                    <a class="nav-item nav-link" href="{{url_for('users_blueprint.logout')}}">Logout</a>
+                    <a class="nav-item nav-link" href="{{url_for('users_blueprint.account')}}">Account</a>
+                    <a class="nav-item nav-link" href="{{url_for('posts_blueprint.new_post')}}">New Post</a>
                     {% else %}
-                    <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
-                    <a class="nav-item nav-link" href="{{url_for('register')}}">Register</a>
+                    <a class="nav-item nav-link" href="{{url_for('users_blueprint.login')}}">Login</a>
+                    <a class="nav-item nav-link" href="{{url_for('users_blueprint.register')}}">Register</a>
                     {% endif%}
                 </div>
 

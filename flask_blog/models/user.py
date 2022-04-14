@@ -1,6 +1,8 @@
-from flask_blog import db, login_manager, bcrypt, app
+from flask import current_app
 from flask_login import UserMixin
-from itsdangerous import TimedJSONWebSignatureSerializer as TokenSerializer, SignatureExpired
+from itsdangerous import TimedSerializer as TokenSerializer, SignatureExpired
+
+from extensions import db, login_manager, bcrypt
 
 day_in_seconds = 24 * 60 * 60
 
@@ -38,7 +40,7 @@ class User(db.Model, UserMixin):
         :return:
         """
         token_serializer = TokenSerializer(
-            secret_key=app.config.get("SECRET_KEY"),
+            secret_key=current_app.config.get("SECRET_KEY"),
             expires_in=expires_in_secs
         )
         token = token_serializer.dumps({"user_id": self.id}).decode("utf-8")
@@ -46,7 +48,7 @@ class User(db.Model, UserMixin):
 
     @staticmethod
     def verify_reset_token(token_hash):
-        token_serializer = TokenSerializer(secret_key=app.config.get("SECRET_KEY"))
+        token_serializer = TokenSerializer(secret_key=current_app.config.get("SECRET_KEY"))
         try:
             user_id = token_serializer.loads(token_hash).get("user_id")
             return User.query.get(user_id)
