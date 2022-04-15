@@ -19,7 +19,7 @@ def reset_password(token):
     user = User.verify_reset_token(token)
     if not user:
         flash("That is an invalid or expired token", category="warning")
-        return redirect(url_for("reset_request_password"))
+        return redirect(url_for("users_blueprint.reset_request_password"))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         # extra unnecessary check
@@ -30,5 +30,5 @@ def reset_password(token):
                 "Your password was successfully Reset! Login with your new password",
                 category="success"
             )
-            return redirect(url_for("login"))
+            return redirect(url_for("users_blueprint.login"))
     return render_template("reset_password.html", form=form)

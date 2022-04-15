@@ -1,6 +1,7 @@
 from flask import current_app
 from flask_login import UserMixin
-from itsdangerous import TimedSerializer as TokenSerializer, SignatureExpired
+import datetime
+import jwt
 
 from extensions import db, login_manager, bcrypt
 
@@ -33,28 +34,35 @@ class User(db.Model, UserMixin):
     def set_password(password):
         return bcrypt.generate_password_hash(password).decode("utf-8")
 
-    def get_reset_token(self, expires_in_secs=60):
+    def get_reset_token(self, exp=day_in_seconds):
         """
         Creates a token for the user
-        :param expires_in_secs:
+        :param exp:
         :return:
         """
-        token_serializer = TokenSerializer(
-            secret_key=current_app.config.get("SECRET_KEY"),
-            expires_in=expires_in_secs
+
+        payload = {
+            "user_id": self.id,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=exp)
+        }
+        token = jwt.encode(
+            payload=payload,
+            key=current_app.config.get("SECRET_KEY"),
+            algorithm="HS256"
         )
-        token = token_serializer.dumps({"user_id": self.id}).decode("utf-8")
         return token
 
     @staticmethod
-    def verify_reset_token(token_hash):
-        token_serializer = TokenSerializer(secret_key=current_app.config.get("SECRET_KEY"))
+    def verify_reset_token(token):
         try:
-            user_id = token_serializer.loads(token_hash).get("user_id")
-            return User.query.get(user_id)
-        except SignatureExpired:
+            serialized = jwt.decode(
+                token,
+                current_app.config.get("SECRET_KEY"),
+                algorithms=["HS256"]
+            )
+            return User.query.get(serialized.get("user_id"))
+        except jwt.ExpiredSignatureError:
             return None
-        return User.query.get(user_id)
 
     def __repr__(self):
         return f"User({self.username}, {self.email}, {self.image_file})"

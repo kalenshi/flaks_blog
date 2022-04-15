@@ -21,6 +21,6 @@ def reset_request_password():
         user = User.query.filter_by(email=email).first()
         send_email(user)
         flash("Check your email for a reset link!", category="success")
-        return redirect(url_for("request_sent"))
+        return redirect(url_for("users_blueprint.request_sent"))
 
     return render_template("request_reset_password.html", form=form)
