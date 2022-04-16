@@ -44,5 +44,4 @@ urllib3==1.26.9
 Werkzeug==2.0.0
 WTForms==2.1
 zipp==3.7.0
-
 PyJWT~=2.3.0

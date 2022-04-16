@@ -5,7 +5,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get("FLASK_SECRET", "ab7b554b5251a4592ba966e44cc2daac")
-    SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'flask_blog', 'site.db')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_PORT = 465
     MAIL_SERVER = "smtp.gmail.com"
