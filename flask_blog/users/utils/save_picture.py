@@ -9,6 +9,10 @@ picture_dimensions = (125, 125)
 
 
 def save_picture(form_picture):
+    """
+    Utility to save users profile pictures
+    reduced in size.
+    """
     random_hex = secrets.token_hex(8)
     _, file_ext = os.path.splitext(form_picture.filename)
     profile_filename = random_hex + file_ext
